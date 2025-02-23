@@ -16,7 +16,7 @@ if (!navigator.onLine) {
   });
 
   $searchForm.innerHTML =
-    "<p>Aucune connexion au réseau. Impossible d'envoyer une requête, veuillez réassayer </p>";
+    "<p>Aucune connexion au réseau. Impossible d'envoyer une requête, veuillez réessayer </p>";
 }
 
 $searchForm.addEventListener("submit", async (e) => {
@@ -88,8 +88,10 @@ async function createEventcard(eventData) {
             <p class="card_text">${eventData.text}</p>
           </div> 
         </div>
-        <p class="card__also">Voir aussi : ${links}</p>
-        <a class="card__article" href="${articleLink}">🔗 Lire l'article complet</a>
+        <div class="card__links">
+          <a class="card__article" href="${articleLink}">🔗 Lire l'article complet</a>
+          <p class="card__also">Voir aussi : ${links}</p>
+        </div>
       </div>
     </details>
     `;
