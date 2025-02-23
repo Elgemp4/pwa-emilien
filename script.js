@@ -14,6 +14,9 @@ if (!navigator.onLine) {
   window.addEventListener("online", (e) => {
     location.reload();
   });
+
+  $searchForm.innerHTML =
+    "<p>Aucune connexion au réseau. Impossible d'envoyer une requête, veuillez réassayer </p>";
 }
 
 $searchForm.addEventListener("submit", async (e) => {
@@ -57,7 +60,7 @@ async function fetchEvents() {
 
 async function createEventcard(eventData) {
   const pages = eventData.pages;
-  const image = pages[0].thumbnail.source;
+  const image = pages[0].thumbnail?.source;
   const imageAlt = pages[0].title;
   const articleLink = pages[0].content_urls.desktop.page;
   pages.splice(0, 1);
