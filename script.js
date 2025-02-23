@@ -96,11 +96,21 @@ async function createEventcard(eventData) {
     `;
 }
 
+//Fetch the api to check online status
+async function isOnline() {
+  try {
+    const result = await fetch(`${API_ENDPOINT}/1/1`);
+    return result.ok;
+  } catch (Exception) {
+    return false;
+  }
+}
+
 //Handle offline connection load last fetched data
 //and remove the forms
 //Add a listener to refresh the page when the connexion comes back
-function handleOffline() {
-  if (!navigator.onLine) {
+async function handleOffline() {
+  if (!(await isOnline())) {
     const loadedEvents = JSON.parse(localStorage.getItem("events"));
     if (loadedEvents) {
       displayEvents(loadedEvents);
