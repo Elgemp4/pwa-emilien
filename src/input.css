@@ -23,6 +23,7 @@ body {
 
 .search__input {
   @apply p-3 rounded-md outline-0 max-w-40 w-full text-center bg-gray-50;
+  -moz-appearance: textfield;
 }
 
 .search__input::-webkit-inner-spin-button,
@@ -58,7 +59,7 @@ body {
 }
 
 .card a {
-  @apply text-blue-500 underline hover:text-blue-900;
+  @apply text-blue-500 underline hover:text-blue-200;
 }
 
 .card:is([open]) .card__title {
