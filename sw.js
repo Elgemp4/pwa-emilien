@@ -1,4 +1,4 @@
-const VERSION = "V2";
+const VERSION = "V4";
 
 const CACHED = [
   "/",
@@ -12,14 +12,30 @@ const CACHED = [
 ];
 
 self.addEventListener("fetch", (e) => {
-  e.respondWith(handleFetchReponse(e));
+  e.respondWith(handleResponse(e));
 });
 
-async function handleFetchReponse(e) {
+async function handleResponse(e) {
+  if (e.request.mode == "navigate") {
+    return await handleNavigateReponse(e);
+  } else {
+    return await handleRessourceResponse(e);
+  }
+}
+
+async function handleNavigateReponse(e) {
   try {
     const preloadedResponse = await e.preloadResponse();
     if (preloadedResponse) return preloadedResponse;
+    return await fetch(e.request);
+  } catch (Exception) {
+    const cache = await caches.open(VERSION);
+    return cache.match(e.request);
+  }
+}
 
+async function handleRessourceResponse(e) {
+  try {
     return await fetch(e.request);
   } catch (Exception) {
     const cache = await caches.open(VERSION);
@@ -32,14 +48,14 @@ self.addEventListener("install", (e) => {
 
   self.skipWaiting();
 
-  self.waitUntil(fillCache());
+  e.waitUntil(fillCache());
 });
 
 self.addEventListener("activate", (e) => {
   console.log(`${VERSION} : Activate`);
   clients.claim();
 
-  self.waitUntil(cleanCache());
+  e.waitUntil(cleanCache());
 });
 
 async function cleanCache() {

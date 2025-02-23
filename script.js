@@ -5,18 +5,35 @@ const $yearInput = document.querySelector("#year");
 
 const $resultContainer = document.querySelector(".result__container");
 
+if (!navigator.onLine) {
+  const loadedEvents = JSON.parse(localStorage.getItem("events"));
+  if (loadedEvents) {
+    displayEvents(loadedEvents);
+  }
+
+  window.addEventListener("online", (e) => {
+    location.reload();
+  });
+}
+
 $searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   let events = await fetchEvents();
 
+  localStorage.setItem("events", JSON.stringify(events));
+
+  displayEvents(events);
+});
+
+async function displayEvents(events) {
   events.sort((a, b) => a.year - b.year);
 
   $resultContainer.innerHTML = "";
   for (const eventData of events) {
     createEventcard(eventData);
   }
-});
+}
 
 async function fetchEvents() {
   const result = await fetch(
