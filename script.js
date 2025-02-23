@@ -10,6 +10,10 @@ const $resultContainer = document.querySelector(".result__container");
 
 handleOffline();
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+
 $searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
