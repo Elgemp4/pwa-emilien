@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+body {
+  @apply flex flex-col h-screen;
+}
+
+.search {
+  @apply bg-gray-100 flex items-center justify-center flex-col shadow-md p-6;
+}
+
+.search__title {
+  @apply text-4xl mb-6;
+}
+
+.search__form {
+  @apply flex gap-4;
+}
+
+.search__input {
+  @apply rounded-md outline-0 max-w-20;
+}
+
+.search__submit {
+  @apply bg-green-500 rounded-md text-white p-2;
+}
+
+.results {
+  @apply grow p-6;
+}
+
+.results__title {
+  @apply text-2xl;
+}

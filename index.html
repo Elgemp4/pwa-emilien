@@ -1,9 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="output.min.css" />
     <title>Trouve des évenements historique !</title>
   </head>
-  <body></body>
+  <body>
+    <header class="search">
+      <h1 class="search__title">🔎 Trouve des faits historiques !</h1>
+      <form class="search__form">
+        <input class="search__input" placeholder="19" type="number" id="day" />
+        <span>/</span>
+        <input
+          class="search__input"
+          placeholder="12"
+          type="number"
+          id="month"
+        />
+        <span>/</span>
+        <input
+          class="search__input"
+          placeholder="1998"
+          type="number"
+          id="year"
+        />
+        <button class="search__submit">Rechercher</button>
+      </form>
+    </header>
+    <main class="results">
+      <h1 class="result__title">Résultat :</h1>
+    </main>
+  </body>
 </html>
