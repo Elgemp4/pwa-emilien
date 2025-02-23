@@ -1,5 +1,6 @@
 const VERSION = "V1";
 
+//The list of file to cache
 const CACHED = [
   "/",
   "/index.html",
@@ -15,6 +16,7 @@ self.addEventListener("fetch", (e) => {
   e.respondWith(handleResponse(e));
 });
 
+//Dispatch the resposne handle based of the type of request
 async function handleResponse(e) {
   if (e.request.mode == "navigate") {
     return await handleNavigateReponse(e);
@@ -23,6 +25,7 @@ async function handleResponse(e) {
   }
 }
 
+//Handle navigation request with preloading features
 async function handleNavigateReponse(e) {
   try {
     const preloadedResponse = await e.preloadResponse();
@@ -34,6 +37,7 @@ async function handleNavigateReponse(e) {
   }
 }
 
+//Handle ressource response
 async function handleRessourceResponse(e) {
   try {
     return await fetch(e.request);
@@ -43,21 +47,25 @@ async function handleRessourceResponse(e) {
   }
 }
 
+//Listen for the service worker startup
+//Skip the previous worker
+//Fill the cache
 self.addEventListener("install", (e) => {
-  console.log(`${VERSION} : Install`);
-
   self.skipWaiting();
 
   e.waitUntil(fillCache());
 });
 
+//Listen for the activation of the service worker
+//Force claims the clients
+//Clear the cache the remove previous entries
 self.addEventListener("activate", (e) => {
-  console.log(`${VERSION} : Activate`);
   clients.claim();
 
   e.waitUntil(cleanCache());
 });
 
+//Removed other service workers caches
 async function cleanCache() {
   const keys = await caches.keys();
 
@@ -68,6 +76,7 @@ async function cleanCache() {
   }
 }
 
+//Add cached file to cache
 async function fillCache() {
   const cache = await caches.open(VERSION);
   cache.addAll(CACHED);

@@ -1,3 +1,4 @@
+//Form elements
 const $searchForm = document.querySelector(".search__form");
 const $dayInput = document.querySelector("#day");
 const $monthInput = document.querySelector("#month");
@@ -5,19 +6,7 @@ const $yearInput = document.querySelector("#year");
 
 const $resultContainer = document.querySelector(".result__container");
 
-if (!navigator.onLine) {
-  const loadedEvents = JSON.parse(localStorage.getItem("events"));
-  if (loadedEvents) {
-    displayEvents(loadedEvents);
-  }
-
-  window.addEventListener("online", (e) => {
-    location.reload();
-  });
-
-  $searchForm.innerHTML =
-    "<p>Aucune connexion au réseau. Impossible d'envoyer une requête, veuillez réessayer </p>";
-}
+handleOffline();
 
 $searchForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -29,6 +18,7 @@ $searchForm.addEventListener("submit", async (e) => {
   displayEvents(events);
 });
 
+//Displays the events in the result div and an error message if there is no events
 async function displayEvents(events) {
   if (events == undefined) {
     $resultContainer.innerHTML = "Aucun événement trouvé pour cette date.";
@@ -43,6 +33,7 @@ async function displayEvents(events) {
   }
 }
 
+//Wrapper method to fetch the events
 async function fetchEvents() {
   const result = await fetch(
     `${API_ENDPOINT}/${$monthInput.value}/${$dayInput.value}`
@@ -58,6 +49,7 @@ async function fetchEvents() {
   return events;
 }
 
+//Create a single event card
 async function createEventcard(eventData) {
   const pages = eventData.pages;
   const image = pages[0].thumbnail?.source;
@@ -95,4 +87,23 @@ async function createEventcard(eventData) {
       </div>
     </details>
     `;
+}
+
+//Handle offline connection load last fetched data
+//and remove the forms
+//Add a listener to refresh the page when the connexion comes back
+function handleOffline() {
+  if (!navigator.onLine) {
+    const loadedEvents = JSON.parse(localStorage.getItem("events"));
+    if (loadedEvents) {
+      displayEvents(loadedEvents);
+    }
+
+    window.addEventListener("online", (e) => {
+      location.reload();
+    });
+
+    $searchForm.innerHTML =
+      "<p>Aucune connexion au réseau. Impossible d'envoyer une requête, veuillez réessayer </p>";
+  }
 }
