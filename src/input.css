@@ -4,8 +4,13 @@ body {
   @apply flex flex-col h-screen;
 }
 
+/*Search bar styling*/
 .search {
   @apply bg-gray-100 flex items-center justify-center flex-col shadow-md p-6;
+}
+
+.search span {
+  @apply self-center;
 }
 
 .search__title {
@@ -17,17 +22,71 @@ body {
 }
 
 .search__input {
-  @apply rounded-md outline-0 max-w-20;
+  @apply p-4 rounded-md outline-0 max-w-20 text-center bg-gray-50;
+}
+
+.search__input::-webkit-inner-spin-button,
+.search__input::-webkit-outer-spin-button {
+  @apply appearance-none;
+}
+
+.search__input--required {
+  @apply bg-gray-200;
 }
 
 .search__submit {
-  @apply bg-green-500 rounded-md text-white p-2;
+  @apply bg-green-500 rounded-md text-white p-2 hover:cursor-pointer hover:bg-green-700;
 }
+
+/*Resulst styling*/
 
 .results {
   @apply grow p-6;
 }
 
-.results__title {
-  @apply text-2xl;
+.result__title {
+  @apply text-3xl font-bold mb-6;
+}
+
+.result__container {
+  @apply flex flex-col gap-4;
+}
+
+/*Card styling*/
+.card {
+  @apply border-2 border-gray-100 rounded-md p-4 shadow-xl flex flex-col not-open:justify-center open:gap-5;
+}
+
+.card a {
+  @apply text-blue-500 underline hover:text-blue-900;
+}
+
+.card:is([open]) .card__title {
+  @apply pb-3 border-b-[1px] border-gray-200;
+}
+
+.card__title {
+  @apply font-semibold hover:cursor-pointer;
+}
+
+.card__more {
+  @apply flex;
+}
+
+.card__image {
+  @apply max-h-36;
+}
+
+.card__info {
+  @apply ml-6 flex flex-col justify-center;
+}
+
+.card__text {
+  @apply flex justify-center;
+}
+
+.card__also {
+}
+
+.card__article {
 }

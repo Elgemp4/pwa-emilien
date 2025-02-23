@@ -1,4 +1,4 @@
-const VERSION = "V4";
+const VERSION = "V2";
 
 const CACHED = [
   "/",

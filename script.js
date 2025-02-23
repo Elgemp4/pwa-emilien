@@ -27,6 +27,11 @@ $searchForm.addEventListener("submit", async (e) => {
 });
 
 async function displayEvents(events) {
+  if (events == undefined) {
+    $resultContainer.innerHTML = "Aucun événement trouvé pour cette date.";
+    return;
+  }
+
   events.sort((a, b) => a.year - b.year);
 
   $resultContainer.innerHTML = "";
@@ -41,8 +46,6 @@ async function fetchEvents() {
   );
 
   const data = await result.json();
-
-  console.log(data.events);
 
   return data.events;
 }
@@ -62,21 +65,23 @@ async function createEventcard(eventData) {
   if (links.length == 0) {
     links = "Pas d'articles liés";
   } else {
-    links = links.reduce((a, value) => (a = a + value));
+    links = links.reduce((a, value) => (a = a + ", " + value));
   }
 
   $resultContainer.innerHTML += `
     <details class="card">
       <summary class="card__title">
-        ${eventData.year} - ${eventData.text}
+        🔷 ${eventData.year} - ${eventData.text}
       </summary>
-      <div class="card__more">
-        <img src="${image}" alt="${imageAlt}"/>
-        <div class="card__info">
-          <p class="card_text">${eventData.text}</p>
-          <p>Voir aussi : ${links}</p>
-          <a href="${articleLink}>Lire l'article complet</a>"
-        </div> 
+      <div>
+        <div class="card__more">
+          <img class="card__image" src="${image}" alt="${imageAlt}"/>
+          <div class="card__info">
+            <p class="card_text">${eventData.text}</p>
+          </div> 
+        </div>
+        <p class="card__also">Voir aussi : ${links}</p>
+        <a class="card__article" href="${articleLink}">🔗 Lire l'article complet</a>
       </div>
     </details>
     `;
