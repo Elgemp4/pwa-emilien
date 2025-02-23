@@ -4,6 +4,8 @@ const $dayInput = document.querySelector("#day");
 const $monthInput = document.querySelector("#month");
 const $yearInput = document.querySelector("#year");
 
+const $resultTitle = document.querySelector(".result__title");
+
 const $resultContainer = document.querySelector(".result__container");
 
 handleOffline();
@@ -20,7 +22,8 @@ $searchForm.addEventListener("submit", async (e) => {
 
 //Displays the events in the result div and an error message if there is no events
 async function displayEvents(events) {
-  if (events == undefined) {
+  $resultTitle.classList.remove("hidden");
+  if (events == undefined || events.length == 0) {
     $resultContainer.innerHTML = "Aucun événement trouvé pour cette date.";
     return;
   }

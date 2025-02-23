@@ -1,4 +1,4 @@
-const VERSION = "V1";
+const VERSION = "V2";
 
 //The list of file to cache
 const CACHED = [
