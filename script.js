@@ -45,9 +45,14 @@ async function fetchEvents() {
     `${API_ENDPOINT}/${$monthInput.value}/${$dayInput.value}`
   );
 
-  const data = await result.json();
+  let events = (await result.json()).events;
 
-  return data.events;
+  if ($yearInput.value !== "" && events != undefined) {
+    const year = Number.parseInt($yearInput.value);
+    events = events.filter((article) => year == article.year);
+  }
+
+  return events;
 }
 
 async function createEventcard(eventData) {
@@ -59,7 +64,7 @@ async function createEventcard(eventData) {
 
   let links = pages.map(
     (page) =>
-      `<a href="${page.content_urls.desktop.page}}">${page.displaytitle}</a>`
+      `<a href="${page.content_urls.desktop.page}">${page.displaytitle}</a>`
   );
 
   if (links.length == 0) {
