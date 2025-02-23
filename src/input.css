@@ -22,7 +22,7 @@ body {
 }
 
 .search__input {
-  @apply p-3 rounded-md outline-0 max-w-40 w-full text-center bg-gray-50;
+  @apply p-3 rounded-md outline-0 max-w-40 w-full text-center bg-gray-50 hover:scale-105 transition-transform;
   -moz-appearance: textfield;
 }
 
@@ -36,7 +36,7 @@ body {
 }
 
 .search__submit {
-  @apply bg-green-500 rounded-md text-white p-3 px-6 hover:cursor-pointer hover:bg-green-700;
+  @apply bg-green-500 rounded-md text-white p-3 px-6 hover:cursor-pointer hover:bg-green-600 hover:scale-105 transition-all;
 }
 
 /*Resulst styling*/
@@ -55,7 +55,7 @@ body {
 
 /*Card styling*/
 .card {
-  @apply border-2 border-gray-100 rounded-md p-4 shadow-xl flex flex-col not-open:justify-center open:gap-5;
+  @apply border-2 border-gray-100 rounded-md p-4 shadow-xl flex flex-col not-open:justify-center open:gap-5 hover:scale-105 transition-transform;
 }
 
 .card a {
