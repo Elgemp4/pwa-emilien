@@ -14,7 +14,7 @@ body {
 }
 
 .search__title {
-  @apply text-4xl mb-6;
+  @apply text-4xl mb-6 font-bold;
 }
 
 .search__form {
