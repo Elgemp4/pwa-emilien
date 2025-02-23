@@ -4,15 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="output.min.css" />
+    <link rel="manifest" href="manifest.json" />
     <title>Trouve des évenements historique !</title>
+    <script defer src="config.js"></script>
+    <script defer src="script.js"></script>
   </head>
   <body>
     <header class="search">
       <h1 class="search__title">🔎 Trouve des faits historiques !</h1>
       <form class="search__form">
-        <input class="search__input" placeholder="19" type="number" id="day" />
+        <input
+          required
+          class="search__input"
+          placeholder="19"
+          type="number"
+          id="day"
+        />
         <span>/</span>
         <input
+          required
           class="search__input"
           placeholder="12"
           type="number"
@@ -20,6 +30,7 @@
         />
         <span>/</span>
         <input
+          re
           class="search__input"
           placeholder="1998"
           type="number"
@@ -30,6 +41,7 @@
     </header>
     <main class="results">
       <h1 class="result__title">Résultat :</h1>
+      <div class="result__container"></div>
     </main>
   </body>
 </html>
